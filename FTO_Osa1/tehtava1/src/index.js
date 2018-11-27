@@ -33,11 +33,8 @@ const App = () => {
     <p>Yhteensä {osa1.tehtavia + osa2.tehtavia + osa3.tehtavia} tehtävää</p>
 
     </div>
-    
-   
   )
 }
-
 ReactDOM.render(
   <App />,
   document.getElementById('root')
