@@ -9,15 +9,15 @@ const Otsikko = (props) => {
 }
 const Statistics = (props) => {
     const arvo = props.aania_huono + props.aania_hyva + props.aania_neutraali
-    console.log(arvo)
+    // console.log(arvo)
     if (arvo === 0) {
         return (
             <div>
                 <p>Yhtään palautetta ei ole annettu.</p>
-                <p>Anna palautetta nappuloilla.</p></div>
+            </div>
         )
     }
-    
+
     return (
         <div>
             <Statistic teksti={props.teksti1} arvo={props.aania_hyva} merkki={""} />
@@ -27,7 +27,8 @@ const Statistics = (props) => {
             <Statistic teksti={props.teksti5} arvo={props.prosentti} merkki={"%"} />
         </div>
     )
-        }
+}
+
 const Statistic = (props) => {
     return (
         <p>{props.teksti}: {props.arvo} {props.merkki}</p>
@@ -60,17 +61,24 @@ class App extends React.Component {
     // }
 
     // prevStaten käyttäminen
-    lisaaAaniHyva = () => {
-        this.setState((prevState) => ({
-            hyva: prevState.hyva + 1
-        }));
-    }
+    // lisaaAaniHyva = () => {
+    //     this.setState((prevState) => ({
+    //         hyva: prevState.hyva + 1
+    //     }));
+    // }
 
-    lisaaAaniNeutraali = () => {
-        this.setState({ neutraali: this.state.neutraali + 1 })
-    }
-    lisaaAaniHuono = () => {
-        this.setState({ huono: this.state.huono + 1 })
+    // lisaaAaniNeutraali = () => {
+    //     this.setState({ neutraali: this.state.neutraali + 1 })
+    // }
+    // lisaaAaniHuono = () => {
+    //     this.setState({ huono: this.state.huono + 1 })
+    // }
+
+    lisaaAani = (arvo) => {
+        return () => {
+            this.setState({ [arvo]: this.state[arvo] + 1 })
+
+        }
     }
 
     keskiarvo = (hyva, neutraali, huono) => {
@@ -93,21 +101,26 @@ class App extends React.Component {
             <div>
                 <Otsikko otsikko={"Anna palautetta"} />
 
-                <Button handleClick={this.lisaaAaniHyva} teksti="Hyvä"></Button>
-                <Button handleClick={this.lisaaAaniNeutraali} teksti="Neutraali"></Button>
-                <Button handleClick={this.lisaaAaniHuono} teksti="Huono"></Button>
+                {/* <Button handleClick={this.lisaaAaniHyva} teksti="Hyvä"></Button> */}
+                <Button handleClick={this.lisaaAani("hyva")} teksti="Hyvä"></Button>
+
+                {/* <Button handleClick={this.lisaaAaniNeutraali} teksti="Neutraali"></Button> */}
+                <Button handleClick={this.lisaaAani("neutraali")} teksti="Neutraali"></Button>
+
+                {/* <Button handleClick={this.lisaaAaniHuono} teksti="Huono"></Button> */}
+                <Button handleClick={this.lisaaAani("huono")} teksti="Huono"></Button>
 
                 <Otsikko otsikko={"Statistiikka"} />
 
                 <Statistics
-                    teksti1={"Hyvä"} aania_hyva={tila.hyva} 
-                    teksti2={"Neutraali"} aania_neutraali={tila.neutraali} 
-                    teksti3={"Huono"} aania_huono={tila.huono} 
+                    teksti1={"Hyvä"} aania_hyva={tila.hyva}
+                    teksti2={"Neutraali"} aania_neutraali={tila.neutraali}
+                    teksti3={"Huono"} aania_huono={tila.huono}
 
-                    teksti4={"Keskiarvo"} 
-                    keskiarvo={this.keskiarvo(tila.hyva, tila.neutraali, tila.huono)} 
-                    teksti5={"Positiivisia"} 
-                    prosentti={this.positiivisia(tila.hyva, tila.neutraali, tila.huono)} 
+                    teksti4={"Keskiarvo"}
+                    keskiarvo={this.keskiarvo(tila.hyva, tila.neutraali, tila.huono)}
+                    teksti5={"Positiivisia"}
+                    prosentti={this.positiivisia(tila.hyva, tila.neutraali, tila.huono)}
                 />
             </div>
         )
