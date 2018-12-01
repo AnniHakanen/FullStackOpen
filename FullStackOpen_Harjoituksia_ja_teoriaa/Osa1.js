@@ -4,7 +4,7 @@
 // Aja tiedosto terminaalista käskyllä: node Osa1.js
 
 // MUUTTUJAT
-console.log('MUUTTUJAT')
+console.log('*** MUUTTUJAT ***')
 
 // const määrittelee vakion
 const x = 1
@@ -22,7 +22,7 @@ console.log(x, y)  // tulostuu 1, teksti
 console.log(x, y, z)
 
 // TAULUKOT
-console.log('TAULUKOT')
+console.log('*** TAULUKOT ***')
 
 // taulukon sisältöä voi muuttaa vaikka on määritelty const (eli "vakioksi") - taulukko viittaa aina samaan olioon, mutta olion sisältö voi muuttua, viittaus ei
 const taulukko = [1, -1, 3]
@@ -66,7 +66,7 @@ console.log(eka, toka)      // tulostuu 1, 2
 console.log(loput)          // tulostuu [3, 4 ,5]
 
 //OLIOT
-console.log('OLIOT')
+console.log('*** OLIOT ***')
 
 const olio1 = {
     nimi: 'Arto Hellas',
@@ -106,7 +106,7 @@ const kentanNimi2 = 'salainen numero'
 console.log(olio1[kentanNimi2])   // 12341
 
 //FUNKTIOT
-console.log('FUNKTIOT')
+console.log('*** FUNKTIOT ***')
 
 // Nuolifunktio "pitkän kaavan mukaan"
 const summa = (p1, p2) => {
@@ -128,7 +128,7 @@ const nelio = p => {
 const nelioVastaus = nelio(8)
 console.log('Vastaus (neliö): ' + nelioVastaus)
 
-// Funktion palauttaa vain ykden lausekkeen
+// Funktion palauttaa vain yhden lausekkeen
 const nelio2 = p => p * p
 
 const nelio2Vastaus = nelio2(8)
@@ -141,7 +141,8 @@ const tnelio = t.map(p => p * p) // tnelio on nyt [1, 4, 9]
 console.log('Taulukko alunperin: ' + t)
 console.log('Taulukko mappauksen jälkeen: ' + tnelio)
 
-// Määrittelytapoja on kaksi, funktiolle voidaan antaa function declaration -tyyppisessä määrittelyssä nimi jonka avulla funktioon voidaan viitata:
+// Määrittelytapoja on kaksi, funktiolle voidaan antaa function declaration -tyyppisessä määrittelyssä 
+// nimi jonka avulla funktioon voidaan viitata:
 
 function tulo(a, b) {
   return a * b
@@ -149,10 +150,92 @@ function tulo(a, b) {
 const vastaustulo = tulo(2, 6)
 console.log(vastaustulo)
 
-// Toinen tapa on tehdä määrittely funktiolausekkeena. Tällöin funktiolle ei tarvitse antaa nimeä ja määrittely voi sijaita muun koodin seassa:
+// Toinen tapa on tehdä määrittely funktiolausekkeena. 
+// Tällöin funktiolle ei tarvitse antaa nimeä ja määrittely voi sijaita muun koodin seassa:
 
 const keskiarvo = function(a, b) {
   return (a + b) / 2
 }
 const vastauska = keskiarvo(2, 5)
 console.log(vastauska)
+
+// OLIOIDEN METODIT JA THIS
+console.log('*** OLIOIDEN METODIT JA THIS ***')
+
+// Nuolifunktio-määrittely ja function-sanalla tehty määrittely poikkeaa siinä, miten 
+// avainsana this käyttäytyy
+
+// Oliolle voi lisät funktioita määrittelemällä niille kenttiä, jotka ovat funktioita
+
+console.log('Arto 1')
+const arto = {
+    nimi: 'Arto Hellas',
+    ika: 35,
+    koulutus: 'Filosofian tohtori',
+    tervehdi: function () {
+      console.log('Hello, my name is', this.nimi)
+    }
+  }
+  
+  arto.tervehdi()  // tulostuu hello, my name is Arto Hellas
+
+//   Metodeja voidaan liittää olioille myös niiden luomisen jälkeen:
+
+console.log('Arto 2')
+  const arto2 = {
+    nimi: 'Arto Hellas',
+    ika: 35,
+    koulutus: 'Filosofian tohtori',
+    tervehdi: function () {
+      console.log('hello, my name is', this.nimi)
+    }
+  }
+  arto2.vanhene = function() {
+    this.ika += 1
+  }
+  console.log(arto2.ika)  // tulostuu 35
+  arto2.vanhene()
+  console.log(arto2.ika)  // tulostuu 36
+
+  console.log('Arto 3')
+  const arto3 = {
+    nimi: 'Arto Hellas',
+    tervehdi: function () {
+      console.log('hello, my name is', this.nimi)
+    },
+    laskeSumma: function (a, b) {
+      console.log(a + b)
+    }
+  }
+  arto3.laskeSumma(1, 4)   // tulostuu 5
+  const viiteSummaan = arto3.laskeSumma
+  viiteSummaan(10, 15)   // tulostuu 25
+
+  // viitteen kautta kutsuttaessa metodi kadottaa tiedon alkuperäisestä this:istä
+  arto3.tervehdi() // Hello, my name is Arto Hellas
+  const viiteTervehdykseen = arto3.tervehdi
+  viiteTervehdykseen() // Hello, my name is undefined
+
+  // setTimeout kadottaa arvon
+  setTimeout(arto.tervehdi, 1000)
+  // bind estää katoamisen
+  setTimeout(arto.tervehdi.bind(arto), 1000)
+
+  // LUOKAT
+console.log('*** LUOKAT ***')
+
+class Henkilo {
+    constructor(nimi, ika) {
+      this.nimi = nimi
+      this.ika = ika
+    }
+    tervehdi() {
+      console.log('hello, my name is', this.nimi)
+    }
+  }
+  
+  const luokkaarto = new Henkilo('Arto Hellas', 35)
+  luokkaarto.tervehdi()
+  
+  const luokkajami = new Henkilo('Jami Kousa', 21)
+  luokkajami.tervehdi()
