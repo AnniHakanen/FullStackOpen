@@ -8,15 +8,17 @@ const Otsikko = (props) => {
     )
 }
 const Statistics = (props) => {
+    const arvo = props.aania_huono + props.aania_hyva + props.aania_neutraali
+    console.log(arvo)
+    if (arvo === 0) {
+        return (
+            <div>
+                <p>Yhtään palautetta ei ole annettu.</p>
+                <p>Anna palautetta nappuloilla.</p></div>
+        )
+    }
+    
     return (
-        // <div>
-        //     <p>{props.teksti1}: {props.aania_hyva}</p>
-        //     <p>{props.teksti2}: {props.aania_neutraali}</p>
-        //     <p>{props.teksti3}: {props.aania_huono}</p>
-        //     <p>{props.teksti4}: {props.keskiarvo}</p>
-        //     <p>{props.teksti5}: {props.prosentti} %</p>
-        // </div>
-
         <div>
             <Statistic teksti={props.teksti1} arvo={props.aania_hyva} merkki={""} />
             <Statistic teksti={props.teksti2} arvo={props.aania_neutraali} merkki={""} />
@@ -30,7 +32,6 @@ const Statistic = (props) => {
     return (
         <p>{props.teksti}: {props.arvo} {props.merkki}</p>
     )
-
 }
 const Button = (props) => {
     // console.log(props)
