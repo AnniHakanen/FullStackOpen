@@ -8,30 +8,38 @@ const Otsikko = (props) => {
     )
 }
 const Statistics = (props) => {
-    const arvo = props.aania_huono + props.aania_hyva + props.aania_neutraali
+    // const arvo = props.aania_huono + props.aania_hyva + props.aania_neutraali
+    const summa = props.tiedot[0].arvo + props.tiedot[1].arvo + props.tiedot[2].arvo
     // console.log(arvo)
-    if (arvo === 0) {
+    if (summa === 0) {
         return (
             <div>
                 <p>Yhtään palautetta ei ole annettu.</p>
             </div>
         )
+    } else {
+        return (
+            <table>
+                <tbody>
+                    <Statistic teksti={props.tiedot[0].teksti} arvo={props.tiedot[0].arvo} merkki={""} />
+                    <Statistic teksti={props.tiedot[1].teksti} arvo={props.tiedot[1].arvo} merkki={""} />
+                    <Statistic teksti={props.tiedot[2].teksti} arvo={props.tiedot[2].arvo} merkki={""} />
+                    <Statistic teksti={props.tiedot[3].teksti} arvo={props.tiedot[3].arvo.toFixed(2)} merkki={""} />
+                    <Statistic teksti={props.tiedot[4].teksti} arvo={props.tiedot[4].arvo.toFixed(2)} merkki={"%"} />
+                </tbody>
+            </table>
+        )
     }
-
-    return (
-        <div>
-            <Statistic teksti={props.teksti1} arvo={props.aania_hyva} merkki={""} />
-            <Statistic teksti={props.teksti2} arvo={props.aania_neutraali} merkki={""} />
-            <Statistic teksti={props.teksti3} arvo={props.aania_huono} merkki={""} />
-            <Statistic teksti={props.teksti4} arvo={props.keskiarvo} merkki={""} />
-            <Statistic teksti={props.teksti5} arvo={props.prosentti} merkki={"%"} />
-        </div>
-    )
 }
 
 const Statistic = (props) => {
+    //palautetaan taulukon yksi rivi
     return (
-        <p>{props.teksti}: {props.arvo} {props.merkki}</p>
+        <tr>
+            <td>{props.teksti}</td>
+            <td>{props.arvo}</td>
+            <td>{props.merkki}</td>
+        </tr>
     )
 }
 const Button = (props) => {
@@ -90,38 +98,46 @@ class App extends React.Component {
 
     positiivisia = (hyva, neutraali, huono) => {
         let yhteensa = hyva + neutraali + huono
-        let positiivisia = hyva / yhteensa * 100
+        let positiivisia = (hyva / yhteensa * 100)
         return (positiivisia)
     }
 
     render() {
         const tila = this.state
+        const palautetaulukko = [
+            {
+                teksti: "Hyvä",
+                arvo: tila.hyva
+            },
+            {
+                teksti: "Neutraali",
+                arvo: tila.neutraali
+            },
+            {
+                teksti: "Huono",
+                arvo: tila.huono
+            },
+            {
+                teksti: "Keskiarvo",
+                arvo: this.keskiarvo(tila.hyva, tila.neutraali, tila.huono)
+            },
+            {
+                teksti: "Positiivisia",
+                arvo: this.positiivisia(tila.hyva, tila.neutraali, tila.huono)
+            }
+        ]
+
+        // console.log(palautetaulukko)
 
         return (
             <div>
                 <Otsikko otsikko={"Anna palautetta"} />
-
-                {/* <Button handleClick={this.lisaaAaniHyva} teksti="Hyvä"></Button> */}
                 <Button handleClick={this.lisaaAani("hyva")} teksti="Hyvä"></Button>
-
-                {/* <Button handleClick={this.lisaaAaniNeutraali} teksti="Neutraali"></Button> */}
                 <Button handleClick={this.lisaaAani("neutraali")} teksti="Neutraali"></Button>
-
-                {/* <Button handleClick={this.lisaaAaniHuono} teksti="Huono"></Button> */}
                 <Button handleClick={this.lisaaAani("huono")} teksti="Huono"></Button>
 
                 <Otsikko otsikko={"Statistiikka"} />
-
-                <Statistics
-                    teksti1={"Hyvä"} aania_hyva={tila.hyva}
-                    teksti2={"Neutraali"} aania_neutraali={tila.neutraali}
-                    teksti3={"Huono"} aania_huono={tila.huono}
-
-                    teksti4={"Keskiarvo"}
-                    keskiarvo={this.keskiarvo(tila.hyva, tila.neutraali, tila.huono)}
-                    teksti5={"Positiivisia"}
-                    prosentti={this.positiivisia(tila.hyva, tila.neutraali, tila.huono)}
-                />
+                <Statistics tiedot={palautetaulukko} />
             </div>
         )
     }
