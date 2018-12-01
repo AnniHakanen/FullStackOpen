@@ -7,18 +7,32 @@ const Otsikko = (props) => {
         <h1>{props.otsikko}</h1>
     )
 }
-const Sisalto = (props) => {
+const Statistics = (props) => {
     return (
+        // <div>
+        //     <p>{props.teksti1}: {props.aania_hyva}</p>
+        //     <p>{props.teksti2}: {props.aania_neutraali}</p>
+        //     <p>{props.teksti3}: {props.aania_huono}</p>
+        //     <p>{props.teksti4}: {props.keskiarvo}</p>
+        //     <p>{props.teksti5}: {props.prosentti} %</p>
+        // </div>
+
         <div>
-            <p>{props.teksti1}: {props.aania_hyva}</p>
-            <p>{props.teksti2}: {props.aania_neutraali}</p>
-            <p>{props.teksti3}: {props.aania_huono}</p>
-            <p>{props.teksti4}: {props.keskiarvo}</p>
-            <p>{props.teksti5}: {props.prosentti} %</p>
+            <Statistic teksti={props.teksti1} arvo={props.aania_hyva} merkki={""} />
+            <Statistic teksti={props.teksti2} arvo={props.aania_neutraali} merkki={""} />
+            <Statistic teksti={props.teksti3} arvo={props.aania_huono} merkki={""} />
+            <Statistic teksti={props.teksti4} arvo={props.keskiarvo} merkki={""} />
+            <Statistic teksti={props.teksti5} arvo={props.prosentti} merkki={"%"} />
         </div>
     )
+        }
+const Statistic = (props) => {
+    return (
+        <p>{props.teksti}: {props.arvo} {props.merkki}</p>
+    )
+
 }
-const Painike = (props) => {
+const Button = (props) => {
     // console.log(props)
     const { handleClick, teksti } = props
     return (
@@ -78,21 +92,21 @@ class App extends React.Component {
             <div>
                 <Otsikko otsikko={"Anna palautetta"} />
 
-                <Painike handleClick={this.lisaaAaniHyva} teksti="Hyvä"></Painike>
-                <Painike handleClick={this.lisaaAaniNeutraali} teksti="Neutraali"></Painike>
-                <Painike handleClick={this.lisaaAaniHuono} teksti="Huono"></Painike>
+                <Button handleClick={this.lisaaAaniHyva} teksti="Hyvä"></Button>
+                <Button handleClick={this.lisaaAaniNeutraali} teksti="Neutraali"></Button>
+                <Button handleClick={this.lisaaAaniHuono} teksti="Huono"></Button>
 
                 <Otsikko otsikko={"Statistiikka"} />
 
-                <Sisalto
-                    teksti1={"Hyvä"} aania_hyva={tila.hyva}
-                    teksti2={"Neutraali"} aania_neutraali={tila.neutraali}
-                    teksti3={"Huono"} aania_huono={tila.huono}
+                <Statistics
+                    teksti1={"Hyvä"} aania_hyva={tila.hyva} 
+                    teksti2={"Neutraali"} aania_neutraali={tila.neutraali} 
+                    teksti3={"Huono"} aania_huono={tila.huono} 
 
                     teksti4={"Keskiarvo"} 
-                    keskiarvo={this.keskiarvo(tila.hyva, tila.neutraali, tila.huono)}
+                    keskiarvo={this.keskiarvo(tila.hyva, tila.neutraali, tila.huono)} 
                     teksti5={"Positiivisia"} 
-                    prosentti={this.positiivisia(tila.hyva, tila.neutraali, tila.huono)}
+                    prosentti={this.positiivisia(tila.hyva, tila.neutraali, tila.huono)} 
                 />
             </div>
         )
