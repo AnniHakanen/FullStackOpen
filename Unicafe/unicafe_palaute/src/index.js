@@ -17,11 +17,16 @@ const Sisalto = (props) => {
     )
 }
 const Painike = (props) => {
+    // console.log(props)
+    const {handleClick, teksti} = props
     return (
-        <button onClick={props.toiminto}>{props.teksti}</button>
+        <button onClick={handleClick}>
+        {teksti}
+        </button>
     )
 }
 
+// Luokka
 class App extends React.Component {
     constructor(props) {
         super(props)
@@ -32,9 +37,17 @@ class App extends React.Component {
         }
     }
 
+    // lisaaAaniHyva = () => {
+    //     this.setState({ hyva: this.state.hyva + 1 })
+    // }
+
+    // prevStaten käyttäminen
     lisaaAaniHyva = () => {
-        this.setState({ hyva: this.state.hyva + 1 })
+        this.setState((prevState) => ({
+            hyva: prevState.hyva + 1
+        }));
     }
+
     lisaaAaniNeutraali = () => {
         this.setState({ neutraali: this.state.neutraali + 1 })
     }
@@ -43,20 +56,22 @@ class App extends React.Component {
     }
 
     render() {
+        const tila = this.state
+
         return (
             <div>
                 <Otsikko otsikko={"Anna palautetta"} />
 
-                <Painike toiminto={this.lisaaAaniHyva} teksti="Hyvä"></Painike>
-                <Painike toiminto={this.lisaaAaniNeutraali} teksti="Neutraali"></Painike>
-                <Painike toiminto={this.lisaaAaniHuono} teksti="Huono"></Painike>
+                <Painike handleClick={this.lisaaAaniHyva} teksti="Hyvä"></Painike>
+                <Painike handleClick={this.lisaaAaniNeutraali} teksti="Neutraali"></Painike>
+                <Painike handleClick={this.lisaaAaniHuono} teksti="Huono"></Painike>
 
                 <Otsikko otsikko={"Statistiikka"} />
 
                 <Sisalto
-                    teksti1={"Hyvä"} aania_hyva={this.state.hyva}
-                    teksti2={"Neutraali"} aania_neutraali={this.state.neutraali}
-                    teksti3={"Huono"} aania_huono={this.state.huono} />
+                    teksti1={"Hyvä"} aania_hyva={tila.hyva}
+                    teksti2={"Neutraali"} aania_neutraali={tila.neutraali}
+                    teksti3={"Huono"} aania_huono={tila.huono} />
             </div>
         )
     }
