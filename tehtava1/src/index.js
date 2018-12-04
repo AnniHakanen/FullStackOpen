@@ -25,19 +25,23 @@ const Sisalto = (props) => {
         </div>
     )
 }
-// const Yhteensa = (props) => {
-
-//     return (
-//         <p>yhteensä {props.osat[0].tehtavia + props.osat[1].tehtavia +
-//             props.osat[2].tehtavia} tehtävää</p>
-//     )
-// }
+const Yhteensa = (props) => {
+    // console.log('REDUCE')
+    var tehtavienSumma = props.osat.reduce(function (sum, osa) {
+        return sum + osa.tehtavia
+    }, 0)
+    // console.log(tehtavienSumma)
+    return (
+        <p>Yhteensä {tehtavienSumma} tehtävää</p>
+    )
+}
 const Kurssi = (props) => {
     return (
-    <div>
-        <Otsikko kurssi={props.kurssi} />
-        <Sisalto osat={props.kurssi.osat} />
-    </div>)
+        <div>
+            <Otsikko kurssi={props.kurssi} />
+            <Sisalto osat={props.kurssi.osat} />
+            <Yhteensa osat={props.kurssi.osat} />
+        </div>)
 }
 const App = () => {
     const kurssi = {
