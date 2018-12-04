@@ -16,18 +16,28 @@ const Osa = (props) => {
 const Sisalto = (props) => {
     return (
         <div>
-            <Osa osa={props.osat[0].nimi} tehtavia={props.osat[0].tehtavia} />
+            {/* <Osa osa={props.osat[0].nimi} tehtavia={props.osat[0].tehtavia} />
             <Osa osa={props.osat[1].nimi} tehtavia={props.osat[1].tehtavia} />
-            <Osa osa={props.osat[2].nimi} tehtavia={props.osat[2].tehtavia} />
+            <Osa osa={props.osat[2].nimi} tehtavia={props.osat[2].tehtavia} /> */}
+            <ul>
+                {props.osat.map(osa => <Osa key={osa.id} osa={osa.nimi} tehtavia={osa.tehtavia} />)}
+            </ul>
         </div>
     )
 }
-const Yhteensa = (props) => {
+// const Yhteensa = (props) => {
 
+//     return (
+//         <p>yhteensä {props.osat[0].tehtavia + props.osat[1].tehtavia +
+//             props.osat[2].tehtavia} tehtävää</p>
+//     )
+// }
+const Kurssi = (props) => {
     return (
-        <p>yhteensä {props.osat[0].tehtavia + props.osat[1].tehtavia +
-            props.osat[2].tehtavia} tehtävää</p>
-    )
+    <div>
+        <Otsikko kurssi={props.kurssi} />
+        <Sisalto osat={props.kurssi.osat} />
+    </div>)
 }
 const App = () => {
     const kurssi = {
@@ -35,24 +45,33 @@ const App = () => {
         osat: [
             {
                 nimi: 'Reactin perusteet',
-                tehtavia: 10
+                tehtavia: 10,
+                id: 1
             },
             {
                 nimi: 'Tiedonvälitys propseilla',
-                tehtavia: 7
+                tehtavia: 7,
+                id: 2
             },
             {
                 nimi: 'Komponenttien tila',
-                tehtavia: 14
+                tehtavia: 14,
+                id: 3
+            },
+            {
+                nimi: 'Sovelluksen alustus ja rakenne',
+                tehtavia: 21,
+                id: 4
             }
         ]
     }
 
     return (
         <div>
-            <Otsikko kurssi={kurssi} />
+            {/* <Otsikko kurssi={kurssi} />
             <Sisalto osat={kurssi.osat} />
-            <Yhteensa osat={kurssi.osat} />
+            <Yhteensa osat={kurssi.osat} /> */}
+            <Kurssi kurssi={kurssi} />
         </div>
     )
 }
