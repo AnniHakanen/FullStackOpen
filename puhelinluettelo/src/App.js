@@ -99,18 +99,14 @@ class App extends React.Component {
                                            < input value={this.state.filter} onChange={this.handleFilterChange} />
                                            < /p>
                                              < /div>
-                                               < div>
-                                                 debug:
-                                                 {this.state.filter}
-                                                 < /div>
-                                                   < h2>Numerot
-                                                     < /h2>
-                                                       < table>
-                                                         < tbody>
-                                                           {personlist()}
-                                                           < /tbody>
-                                                             < /table>
-                                                               < /div>
+                                               < h2>Numerot
+                                                 < /h2>
+                                                   < table>
+                                                     < tbody>
+                                                       {personlist()}
+                                                       < /tbody>
+                                                         < /table>
+                                                           < /div>
     )
   }
 }
