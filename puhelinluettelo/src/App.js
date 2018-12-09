@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +18,8 @@ class App extends React.Component {
         id: 3
       }],
       newName: '',
-      newNumber: ''
+      newNumber: '',
+      filter: ''
     }
   }
   addName = (event) => {
@@ -36,7 +37,8 @@ class App extends React.Component {
       this.setState({
         persons: persons,
         newName: '',
-        newNumber: ''
+        newNumber: '',
+        filter: ''
       })
     } else {
       alert('Nimi on jo luettelossa.')
@@ -52,47 +54,63 @@ class App extends React.Component {
       newNumber: event.target.value
     })
   }
+  handleFilterChange = (event) => {
+    this.setState({
+      filter: event.target.value
+    })
+    console.log('Filtteriä muutettu')
+  }
+
   render() {
+
     const personlist = () => this.state.persons.map(person => < p key = {
         person.id
       } > {
         person.name
       } {
         person.number
-      } < /p> )
+      } < /p>)}
 
       return ( < div >
           < h2 > Puhelinluettelo < /h2> < form onSubmit = {
           this.addName
         } >
         < div >
-        Nimi: < input value = {
+        Nimi:
+        < input value = {
           this.state.newName
         }
       onChange = {
         this.handleNameChange
       }
-      / >
-
-      < /div > < div >
-      Numero: < input value = {
+      /> < /div > < div >
+      Numero:
+      < input value = {
         this.state.newNumber
       }
       onChange = {
         this.handleNumberChange
       }
-      / >
-
-      < /div > < div > < button type = "submit" > Lisää < /
-      button >
-      < / div > < /form > <
-      h2 > Numerot < /h2> {
-      personlist()
-    }
-
-    < /div>
-  )
-}
+      /> < /div > < div >
+      < button type = 'submit' >
+      Lisää < / button> < /
+      div > < /form> < div > < p >
+      Rajaa hakua:
+      < input value = {
+        this.state.filter
+      }
+      onChange = {
+        this.handleFilterChange
+      }
+      /> < /p > < /div> < div >
+      debug: {
+        this.state.filter
+      } < /div> < h2 > Numerot < /h
+      2 > {
+        personlist()
+      } < /div>
+    )
+  }
 }
 
 export default App
