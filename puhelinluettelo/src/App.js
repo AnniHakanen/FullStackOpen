@@ -6,44 +6,50 @@ class App extends React.Component {
     this.state = {
       persons: [{
         name: 'Arto Hellas',
+        number: '09 - 123456789',
         id: 1
       }, {
         name: 'Pekka Puupää',
+        number: '09 - 5698745215',
         id: 2
       }, {
         name: 'Nepa Neppula',
+        number: '000',
         id: 3
       }],
-      newName: ''
+      newName: '',
+      newNumber: ''
     }
   }
   addName = (event) => {
     event.preventDefault()
-      // console.log('Painiketta painettu')
-      //Tehtävä 2.7 taulukon sisällön tutkiminen
-
     const result = this.state.persons.find(person => person.name ===
         this.state.newName)
       // console.log(result)
     if (result === undefined) {
-      // console.log(this.state.newName)
       const nameObject = {
         name: this.state.newName,
+        number: this.state.newNumber,
         id: this.state.persons.length + 1
       }
       const persons = this.state.persons.concat(nameObject)
       this.setState({
         persons: persons,
-        newName: ''
+        newName: '',
+        newNumber: ''
       })
     } else {
       alert('Nimi on jo luettelossa.')
     }
   }
   handleNameChange = (event) => {
-    // console.log('targetValue', event.target.value)
     this.setState({
       newName: event.target.value
+    })
+  }
+  handleNumberChange = (event) => {
+    this.setState({
+      newNumber: event.target.value
     })
   }
   render() {
@@ -51,6 +57,8 @@ class App extends React.Component {
         person.id
       } > {
         person.name
+      } {
+        person.number
       } < /p> )
 
       return ( < div >
@@ -58,13 +66,24 @@ class App extends React.Component {
           this.addName
         } >
         < div >
-        nimi: < input value = {
+        Nimi: < input value = {
           this.state.newName
         }
       onChange = {
         this.handleNameChange
       }
-      / > < /div > < div > < button type = "submit" > lisää < /
+      / >
+
+      < /div > < div >
+      Numero: < input value = {
+        this.state.newNumber
+      }
+      onChange = {
+        this.handleNumberChange
+      }
+      / >
+
+      < /div > < div > < button type = "submit" > Lisää < /
       button >
       < / div > < /form > <
       h2 > Numerot < /h2> {
