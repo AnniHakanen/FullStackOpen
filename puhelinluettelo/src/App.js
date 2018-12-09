@@ -58,14 +58,14 @@ class App extends React.Component {
       filter: event.target.value
     })
   }
-
-  render () {
+  filterPersons = (filter) => {
     const personsToShow = this.state.persons.filter(person => person.name
-        .toLowerCase().indexOf(
-        this.state.filter.toLowerCase()) !== -1)
-
-    // console.log(personsToShow)
-
+        .toLowerCase().indexOf(filter.toLowerCase()) !== -1)
+    return (
+      personsToShow
+    )
+  }
+  makePersonList = (personsToShow) => {
     const personlist = () => personsToShow.map(person => < tr key={person.id}>
                                                            < td>
                                                              {person.name}
@@ -74,41 +74,50 @@ class App extends React.Component {
                                                                  {person.number}
                                                                  < /td>
                                                                    < /tr>)
+    return (
+      personlist
+    )
+  }
 
+  render () {
+    // console.log(personsToShow)
+    const personlist = this.makePersonList(this.filterPersons(this.state
+      .filter))
     return ( < div>
-               < h2>Puhelinluettelo
-                 < /h2>
-                   < form onSubmit={this.addName}>
-                     < div>
-                       Nimi:
-                       < input value={this.state.newName} onChange={this.handleNameChange} />
-                       < /div>
-                         < div>
-                           Numero:
-                           < input value={this.state.newNumber} onChange={this.handleNumberChange} />
+               < Otsikko otsikko={'Puhelinluettelo'} />
+               < form onSubmit={this.addName}>
+                 < Input nimike={"Nimi: "} value={this.state.newName} onChange={this.handleNameChange} />
+                 < Input nimike={'Numero: '} value={this.state.newNumber} onChange={this.handleNumberChange} />
+                 < Button type='submit' nimike={"Lisää"} />
+                 < /form>
+                   < Input nimike={"Rajaa hakua: "} value={this.state.filter} onChange={this.handleFilterChange} />
+                   < Otsikko otsikko={'Numerot'} />
+                   < table>
+                     < tbody>
+                       {personlist()}
+                       < /tbody>
+                         < /table>
                            < /div>
-                             < div>
-                               < button type='submit'>
-                                 Lisää
-                                 < / button>
-                                   < / div>
-                                     < /form>
-                                       < div>
-                                         < p>
-                                           Rajaa hakua:
-                                           < input value={this.state.filter} onChange={this.handleFilterChange} />
-                                           < /p>
-                                             < /div>
-                                               < h2>Numerot
-                                                 < /h2>
-                                                   < table>
-                                                     < tbody>
-                                                       {personlist()}
-                                                       < /tbody>
-                                                         < /table>
-                                                           < /div>
     )
   }
 }
-
+const Otsikko = (props) => {
+  return ( < h2>
+             {props.otsikko}
+             < /h2>)
+}
+const Input = (props) => {
+  return ( < div>
+             {props.nimike}
+             < input value={props.value} onChange={props.onChange} />
+             < /div> )
+}
+const Button = (props) => {
+  return ( < div>
+             < button type={props.type}>
+               {props.nimike}
+               < /button>
+                 < /div>
+  )
+}
 export default App
