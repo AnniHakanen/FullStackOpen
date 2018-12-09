@@ -19,20 +19,29 @@ class App extends React.Component {
   }
   addName = (event) => {
     event.preventDefault()
-    console.log('Painiketta painettu')
-    console.log(this.state.newName)
-    const nameObject = {
-      name: this.state.newName,
-      id: this.state.persons.length + 1
+      // console.log('Painiketta painettu')
+      //Tehtävä 2.7 taulukon sisällön tutkiminen
+
+    const result = this.state.persons.find(person => person.name ===
+        this.state.newName)
+      // console.log(result)
+    if (result === undefined) {
+      // console.log(this.state.newName)
+      const nameObject = {
+        name: this.state.newName,
+        id: this.state.persons.length + 1
+      }
+      const persons = this.state.persons.concat(nameObject)
+      this.setState({
+        persons: persons,
+        newName: ''
+      })
+    } else {
+      alert('Nimi on jo luettelossa.')
     }
-    const persons = this.state.persons.concat(nameObject)
-    this.setState({
-      persons: persons,
-      newName: ''
-    })
   }
   handleNameChange = (event) => {
-    console.log('targetValue', event.target.value)
+    // console.log('targetValue', event.target.value)
     this.setState({
       newName: event.target.value
     })
@@ -57,10 +66,7 @@ class App extends React.Component {
       }
       / > < /div > < div > < button type = "submit" > lisää < /
       button >
-      < / div > < div >
-      debug: {
-        this.state.newName
-      } < /div>< /form > <
+      < / div > < /form > <
       h2 > Numerot < /h2> {
       personlist()
     }
