@@ -60,20 +60,20 @@ class App extends React.Component {
   }
 
   render () {
-    const naytettavatHenkilot = this.state.persons.filter(person => person.name
+    const personsToShow = this.state.persons.filter(person => person.name
         .toLowerCase().indexOf(
         this.state.filter.toLowerCase()) !== -1)
 
-    // console.log(naytettavatHenkilot)
+    // console.log(personsToShow)
 
-    const personlist = () => naytettavatHenkilot.map(person => < tr key={person.id}>
-                                                                 < td>
-                                                                   {person.name}
-                                                                   < /td>
-                                                                     < td>
-                                                                       {person.number}
-                                                                       < /td>
-                                                                         < /tr>)
+    const personlist = () => personsToShow.map(person => < tr key={person.id}>
+                                                           < td>
+                                                             {person.name}
+                                                             < /td>
+                                                               < td>
+                                                                 {person.number}
+                                                                 < /td>
+                                                                   < /tr>)
 
     return ( < div>
                < h2>Puhelinluettelo
