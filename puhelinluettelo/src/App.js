@@ -48,8 +48,12 @@ class App extends React.Component {
       axios.post('http://localhost:3001/persons', nameObject)
         .then(response => {
           // console.log(response)
+          this.setState({
+            persons: this.state.persons.concat(response.data),
+            newName: '',
+            newNumber: ''
+          })
         })
-      this.componentDidMount()
     } else {
       alert('Nimi on jo luettelossa tai nimi on tyhjä.')
     }
