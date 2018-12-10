@@ -10,15 +10,15 @@ class App extends React.Component {
       newNumber: '',
       filter: ''
     }
-    console.log('constructor')
+  // console.log('constructor')
   }
 
   componentDidMount () {
-    console.log('did mount')
+    // console.log('did mount')
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
-        console.log('promise fulfilled')
+        // console.log('promise fulfilled')
         this.setState({
           persons: response.data
         })
@@ -36,12 +36,20 @@ class App extends React.Component {
         number: this.state.newNumber,
         id: this.state.persons.length + 1
       }
-      const persons = this.state.persons.concat(nameObject)
-      this.setState({
-        persons: persons,
-        newName: '',
-        newNumber: ''
-      })
+      // const persons = this.state.persons.concat(nameObject)
+      // this.setState({
+      //   persons: persons,
+      //   newName: '',
+      //   newNumber: ''
+      // })
+
+      // Uuden henkilön lisääminen db.json
+
+      axios.post('http://localhost:3001/persons', nameObject)
+        .then(response => {
+          // console.log(response)
+        })
+      this.componentDidMount()
     } else {
       alert('Nimi on jo luettelossa tai nimi on tyhjä.')
     }
@@ -83,10 +91,9 @@ class App extends React.Component {
   }
 
   render () {
-    console.log('render')
-    // console.log(personsToShow)
-    // const personlist = this.makePersonList(this.filterPersons(this.state
-    //   .filter))
+    // console.log('render')
+    const personlist = this.makePersonList(this.filterPersons(this.state
+      .filter))
     // console.log(personlist)
     return ( < div>
                < Otsikko otsikko={'Puhelinluettelo'} />
@@ -99,7 +106,7 @@ class App extends React.Component {
                    < Otsikko otsikko={'Numerot'} />
                    < table>
                      < tbody>
-                       {this.makePersonList(this.filterPersons(this.state.filter))()}
+                       {personlist()}
                        < /tbody>
                          < /table>
                            < /div>
