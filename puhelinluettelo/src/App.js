@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 
 class App extends React.Component {
   constructor (props) {
@@ -10,15 +10,12 @@ class App extends React.Component {
       newNumber: '',
       filter: ''
     }
-  // console.log('constructor')
   }
 
   componentDidMount () {
-    // console.log('did mount')
-    axios
-      .get('http://localhost:3001/persons')
+    personService
+      .getAll()
       .then(response => {
-        // console.log('promise fulfilled')
         this.setState({
           persons: response.data
         })
@@ -29,25 +26,15 @@ class App extends React.Component {
     event.preventDefault()
     const result = this.state.persons.find(person => person.name ===
       this.state.newName)
-    // console.log(result)
     if (result === undefined && this.state.newName !== '') {
       const nameObject = {
         name: this.state.newName,
         number: this.state.newNumber,
         id: this.state.persons.length + 1
       }
-      // const persons = this.state.persons.concat(nameObject)
-      // this.setState({
-      //   persons: persons,
-      //   newName: '',
-      //   newNumber: ''
-      // })
-
-      // Uuden henkilön lisääminen db.json
-
-      axios.post('http://localhost:3001/persons', nameObject)
+      personService
+        .create(nameObject)
         .then(response => {
-          // console.log(response)
           this.setState({
             persons: this.state.persons.concat(response.data),
             newName: '',
@@ -95,10 +82,8 @@ class App extends React.Component {
   }
 
   render () {
-    // console.log('render')
     const personlist = this.makePersonList(this.filterPersons(this.state
       .filter))
-    // console.log(personlist)
     return ( < div>
                < Otsikko otsikko={'Puhelinluettelo'} />
                < form onSubmit={this.addName}>
