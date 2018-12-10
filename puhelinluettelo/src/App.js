@@ -1,27 +1,30 @@
 import React from 'react'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      persons: [{
-        name: 'Arto Hellas',
-        number: '09 - 123456789',
-        id: 1
-      }, {
-        name: 'Pekka Puupää',
-        number: '09 - 5698745215',
-        id: 2
-      }, {
-        name: 'Nepa Neppula',
-        number: '000',
-        id: 3
-      }],
+      persons: [],
       newName: '',
       newNumber: '',
       filter: ''
     }
+    console.log('constructor')
   }
+
+  componentDidMount () {
+    console.log('did mount')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('promise fulfilled')
+        this.setState({
+          persons: response.data
+        })
+      })
+  }
+
   addName = (event) => {
     event.preventDefault()
     const result = this.state.persons.find(person => person.name ===
@@ -80,6 +83,7 @@ class App extends React.Component {
   }
 
   render () {
+    console.log('render')
     // console.log(personsToShow)
     // const personlist = this.makePersonList(this.filterPersons(this.state
     //   .filter))
