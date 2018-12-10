@@ -81,8 +81,9 @@ class App extends React.Component {
 
   render () {
     // console.log(personsToShow)
-    const personlist = this.makePersonList(this.filterPersons(this.state
-      .filter))
+    // const personlist = this.makePersonList(this.filterPersons(this.state
+    //   .filter))
+    // console.log(personlist)
     return ( < div>
                < Otsikko otsikko={'Puhelinluettelo'} />
                < form onSubmit={this.addName}>
@@ -94,7 +95,7 @@ class App extends React.Component {
                    < Otsikko otsikko={'Numerot'} />
                    < table>
                      < tbody>
-                       {personlist()}
+                       {this.makePersonList(this.filterPersons(this.state.filter))()}
                        < /tbody>
                          < /table>
                            < /div>
