@@ -42,7 +42,7 @@ class App extends React.Component {
       const personObject = {
         name: this.state.newName,
         number: this.state.newNumber,
-        id: this.state.persons.length + 1
+        id: this.state.newName
       }
       personService
         .create(personObject)
@@ -60,20 +60,38 @@ class App extends React.Component {
       const personObject = {
         name: this.state.newName,
         number: this.state.newNumber,
-        id: this.state.persons.length + 1
+        id: this.state.newName
       }
       personService
         .update(result.id, personObject)
+        .then(response => {
+          this.updateList()
+        })
     } else {
       alert('Nimi on jo luettelossa tai nimi on tyhjä.')
     }
   }
+
+  updateList = () => {
+    console.log('Päivitetään lista')
+    personService
+      .getAll().then(response => {
+      console.log(response)
+      this.setState({
+        persons: response.data,
+        newName: '',
+        newNumber: ''
+      })
+    })
+  }
+
   deletePerson = (id) => {
     // console.log('Poista nimi', id)
     window.confirm('Haluatko poistaa nimen luettelosta')
     personService.remove(id)
       .then(response => {
         // console.log(response.data)
+        this.updateList()
       })
   }
   // Tapahtumankäsittelijjät Input-kenttien muutoksille

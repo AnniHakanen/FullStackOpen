@@ -1,29 +1,24 @@
 {
   "persons": [
     {
+      "name": "Arto Hellas",
+      "number": "040-123456",
+      "id": "Arto Hellas"
+    },
+    {
+      "name": "Martti Tienari",
+      "number": "040-6985478",
+      "id": "Martti Tienari"
+    },
+    {
       "name": "Nepa Neppula",
-      "number": "526",
-      "id": 3
+      "number": "050-9854785",
+      "id": "Nepa Neppula"
     },
     {
-      "name": "Yksi Sarvinen",
-      "number": "010 - 23658954",
-      "id": 4
-    },
-    {
-      "name": "Nella Nutipää",
-      "number": "040 - 56999985",
-      "id": 5
-    },
-    {
-      "name": "Konsta Koiranen",
-      "number": "02-9865478",
-      "id": 6
-    },
-    {
-      "name": "Joonas Ajo",
-      "number": "895685478",
-      "id": 7
+      "name": "Arto Järvinen",
+      "number": "050-9856548",
+      "id": "Arto Järvinen"
     }
   ]
 }
