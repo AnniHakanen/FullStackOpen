@@ -1,18 +1,8 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "09 - 123456789",
-      "id": 1
-    },
-    {
-      "name": "Pekka Puupää",
-      "number": "09 - 5698745215",
-      "id": 2
-    },
-    {
       "name": "Nepa Neppula",
-      "number": "050 3635874",
+      "number": "526",
       "id": 3
     },
     {
@@ -34,36 +24,6 @@
       "name": "Joonas Ajo",
       "number": "895685478",
       "id": 7
-    },
-    {
-      "name": "Taavi Tumpula",
-      "number": "56985478",
-      "id": 8
-    },
-    {
-      "name": "Paavo Pesusieni",
-      "number": "06-6985478",
-      "id": 9
-    },
-    {
-      "name": "Jaana Java",
-      "number": "026-9856547",
-      "id": 10
-    },
-    {
-      "name": "Lauri Luuri",
-      "number": "09-98569845",
-      "id": 11
-    },
-    {
-      "name": "Reetta Fakta",
-      "number": "025-6985475",
-      "id": 12
-    },
-    {
-      "name": "Taneli Tauno",
-      "number": "02-9856589",
-      "id": 13
     }
   ]
 }

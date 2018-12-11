@@ -2,6 +2,7 @@ import React from 'react'
 import Person from './Person'
 
 const Persontable = (props) => {
+  // console.log('Persontable', props)
   return ( < table>
              < tbody>
                {props.list.map(person => < Person
@@ -9,7 +10,7 @@ const Persontable = (props) => {
                                            name={person.name}
                                            number={person.number}
                                            id={person.id}
-                                           handleClick={props.handleClick} />)}
+                                           onClick={props.onClick} />)}
                < /tbody>
                  < /table>
   )

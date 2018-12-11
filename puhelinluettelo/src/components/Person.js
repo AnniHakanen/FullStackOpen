@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Person = (props) => {
-  console.log('Person', props)
+  // console.log('Person', props)
   return ( < tr>
              < td>
                {props.name}
@@ -10,17 +10,17 @@ const Person = (props) => {
                    {props.number}
                    < /td>
                      <td>
-                       <Button onClick={props.handleClick(props.id)} title='Poista' />
+                       <Button onClick={props.onClick} title='Poista' id={props.id} />
                      </td>
                      < /tr> )
 }
+
 const Button = (props) => {
-  console.log(props)
-  const { handleClick, title } = props
+  // console.log(props)
   return (
-    <button onClick={handleClick}>
-      {title}
-    </button>
+    < button onClick={props.onClick.bind(this, props.id)}>
+      {props.title}
+      < /button>
   )
 }
 export default Person

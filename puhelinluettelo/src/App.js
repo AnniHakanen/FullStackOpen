@@ -9,6 +9,7 @@ import AddButton from './components/AddButton'
 class App extends React.Component {
   constructor (props) {
     super(props)
+    this.deletePerson = this.deletePerson.bind(this)
     this.state = {
       persons: [],
       newName: '',
@@ -35,6 +36,7 @@ class App extends React.Component {
     // Tarkistetaan onko nimi jo listassa tai nimi tyhjä
     const result = this.state.persons.find(person => person.name ===
       this.state.newName)
+    console.log(result)
     // Jos nimeä ei ole listassa ja nimi ei ole tyhjä, luodaan uusi nimi
     if (result === undefined && this.state.newName !== '') {
       const personObject = {
@@ -51,12 +53,28 @@ class App extends React.Component {
             newNumber: ''
           })
         })
+    // Jos nimi on jo luettelossa
+    } else if (this.state.newName !== '') {
+      window.confirm('Nimi on jo luettelossa, haluatko päivittää numeron?')
+      console.log('Päivitetään numero', result.id)
+      const personObject = {
+        name: this.state.newName,
+        number: this.state.newNumber,
+        id: this.state.persons.length + 1
+      }
+      personService
+        .update(result.id, personObject)
     } else {
       alert('Nimi on jo luettelossa tai nimi on tyhjä.')
     }
   }
   deletePerson = (id) => {
-    console.log('Poista nimi', id)
+    // console.log('Poista nimi', id)
+    window.confirm('Haluatko poistaa nimen luettelosta')
+    personService.remove(id)
+      .then(response => {
+        // console.log(response.data)
+      })
   }
   // Tapahtumankäsittelijjät Input-kenttien muutoksille
   handleNameChange = (event) => {
@@ -87,11 +105,8 @@ class App extends React.Component {
                  < /form>
                    < Input title={"Rajaa hakua: "} value={state.filter} onChange={this.handleFilterChange} />
                    < Headline title={'Numerot'} />
-                   < Persontable list={personlist} handleClick={this.deletePerson} />
-                   < button onClick={this.deletePerson}>
-                     POISTA
-                     < /button>
-                       < /div>
+                   < Persontable list={personlist} onClick={this.deletePerson} />
+                   < /div>
     )
   }
 }
