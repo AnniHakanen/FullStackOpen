@@ -1,6 +1,7 @@
 import React from 'react'
 import personService from './services/persons'
 
+// Luokan alustus
 class App extends React.Component {
   constructor (props) {
     super(props)
@@ -12,6 +13,7 @@ class App extends React.Component {
     }
   }
 
+  // json-datan lukeminen (db.json)
   componentDidMount () {
     personService
       .getAll()
@@ -22,18 +24,22 @@ class App extends React.Component {
       })
   }
 
+  // Uuden nimen lisääminen
   addName = (event) => {
+    // Formin oletustapahtuman estäminen (oletus mm. lataisi sivun uudelleen)
     event.preventDefault()
+    // Tarkistetaan onko nimi jo listassa tai nimi tyhjä
     const result = this.state.persons.find(person => person.name ===
       this.state.newName)
+    // Jos nimeä ei ole listassa ja nimi ei ole tyhjä, luodaan uusi nimi
     if (result === undefined && this.state.newName !== '') {
-      const nameObject = {
+      const personObject = {
         name: this.state.newName,
         number: this.state.newNumber,
         id: this.state.persons.length + 1
       }
       personService
-        .create(nameObject)
+        .create(personObject)
         .then(response => {
           this.setState({
             persons: this.state.persons.concat(response.data),
@@ -45,6 +51,7 @@ class App extends React.Component {
       alert('Nimi on jo luettelossa tai nimi on tyhjä.')
     }
   }
+  // Tapahtumankäsittelijjät Input-kenttien muutoksille
   handleNameChange = (event) => {
     this.setState({
       newName: event.target.value
@@ -60,6 +67,7 @@ class App extends React.Component {
       filter: event.target.value
     })
   }
+  // Haun rajaaminen
   filterPersons = (filter) => {
     const personsToShow = this.state.persons.filter(person => person.name
         .toLowerCase().indexOf(filter.toLowerCase()) !== -1)
@@ -67,6 +75,7 @@ class App extends React.Component {
       personsToShow
     )
   }
+  // Luodaan henkilölista
   makePersonList = (personsToShow) => {
     const personlist = () => personsToShow.map(person => < tr key={person.id}>
                                                            < td>
