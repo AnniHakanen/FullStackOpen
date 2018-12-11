@@ -4,7 +4,12 @@ import Person from './Person'
 const Persontable = (props) => {
   return ( < table>
              < tbody>
-               {props.list.map(person => < Person key={person.id} name={person.name} number={person.number} />)}
+               {props.list.map(person => < Person
+                                           key={person.id}
+                                           name={person.name}
+                                           number={person.number}
+                                           id={person.id}
+                                           handleClick={props.handleClick} />)}
                < /tbody>
                  < /table>
   )

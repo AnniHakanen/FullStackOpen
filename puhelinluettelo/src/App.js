@@ -3,7 +3,7 @@ import personService from './services/persons'
 import Persontable from './components/Persontable'
 import Input from './components/Input'
 import Headline from './components/Headline'
-import Button from './components/Button'
+import AddButton from './components/AddButton'
 
 // Luokan alustus
 class App extends React.Component {
@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 
   // Uuden nimen lisääminen
-  addName = (event) => {
+  addPerson = (event) => {
     // Formin oletustapahtuman estäminen (oletus mm. lataisi sivun uudelleen)
     event.preventDefault()
     // Tarkistetaan onko nimi jo listassa tai nimi tyhjä
@@ -55,6 +55,9 @@ class App extends React.Component {
       alert('Nimi on jo luettelossa tai nimi on tyhjä.')
     }
   }
+  deletePerson = (id) => {
+    console.log('Poista nimi', id)
+  }
   // Tapahtumankäsittelijjät Input-kenttien muutoksille
   handleNameChange = (event) => {
     this.setState({
@@ -77,15 +80,18 @@ class App extends React.Component {
         .indexOf(state.filter.toLowerCase()) !== -1)
     return ( < div>
                < Headline title={'Puhelinluettelo'} />
-               < form onSubmit={this.addName}>
+               < form onSubmit={this.addPerson}>
                  < Input title={"Nimi: "} value={state.newName} onChange={this.handleNameChange} />
                  < Input title={'Numero: '} value={state.newNumber} onChange={this.handleNumberChange} />
-                 < Button type='submit' title={"Lisää"} />
+                 < AddButton type='submit' title={"Lisää"} />
                  < /form>
                    < Input title={"Rajaa hakua: "} value={state.filter} onChange={this.handleFilterChange} />
                    < Headline title={'Numerot'} />
-                   < Persontable list={personlist} />
-                   < /div>
+                   < Persontable list={personlist} handleClick={this.deletePerson} />
+                   < button onClick={this.deletePerson}>
+                     POISTA
+                     < /button>
+                       < /div>
     )
   }
 }
