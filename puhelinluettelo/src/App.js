@@ -1,5 +1,9 @@
 import React from 'react'
 import personService from './services/persons'
+import Persontable from './components/Persontable'
+import Input from './components/Input'
+import Headline from './components/Headline'
+import Button from './components/Button'
 
 // Luokan alustus
 class App extends React.Component {
@@ -67,67 +71,22 @@ class App extends React.Component {
       filter: event.target.value
     })
   }
-  // Haun rajaaminen
-  filterPersons = (filter) => {
-    const personsToShow = this.state.persons.filter(person => person.name
-        .toLowerCase().indexOf(filter.toLowerCase()) !== -1)
-    return (
-      personsToShow
-    )
-  }
-  // Luodaan henkilölista
-  makePersonList = (personsToShow) => {
-    const personlist = () => personsToShow.map(person => < tr key={person.id}>
-                                                           < td>
-                                                             {person.name}
-                                                             < /td>
-                                                               < td>
-                                                                 {person.number}
-                                                                 < /td>
-                                                                   < /tr>)
-    return (
-      personlist
-    )
-  }
-
   render () {
-    const personlist = this.makePersonList(this.filterPersons(this.state
-      .filter))
+    const state = this.state
+    const personlist = state.persons.filter(person => person.name.toLowerCase()
+        .indexOf(state.filter.toLowerCase()) !== -1)
     return ( < div>
-               < Otsikko otsikko={'Puhelinluettelo'} />
+               < Headline title={'Puhelinluettelo'} />
                < form onSubmit={this.addName}>
-                 < Input nimike={"Nimi: "} value={this.state.newName} onChange={this.handleNameChange} />
-                 < Input nimike={'Numero: '} value={this.state.newNumber} onChange={this.handleNumberChange} />
-                 < Button type='submit' nimike={"Lisää"} />
+                 < Input title={"Nimi: "} value={state.newName} onChange={this.handleNameChange} />
+                 < Input title={'Numero: '} value={state.newNumber} onChange={this.handleNumberChange} />
+                 < Button type='submit' title={"Lisää"} />
                  < /form>
-                   < Input nimike={"Rajaa hakua: "} value={this.state.filter} onChange={this.handleFilterChange} />
-                   < Otsikko otsikko={'Numerot'} />
-                   < table>
-                     < tbody>
-                       {personlist()}
-                       < /tbody>
-                         < /table>
-                           < /div>
+                   < Input title={"Rajaa hakua: "} value={state.filter} onChange={this.handleFilterChange} />
+                   < Headline title={'Numerot'} />
+                   < Persontable list={personlist} />
+                   < /div>
     )
   }
-}
-const Otsikko = (props) => {
-  return ( < h2>
-             {props.otsikko}
-             < /h2>)
-}
-const Input = (props) => {
-  return ( < div>
-             {props.nimike}
-             < input value={props.value} onChange={props.onChange} />
-             < /div> )
-}
-const Button = (props) => {
-  return ( < div>
-             < button type={props.type}>
-               {props.nimike}
-               < /button>
-                 < /div>
-  )
 }
 export default App
