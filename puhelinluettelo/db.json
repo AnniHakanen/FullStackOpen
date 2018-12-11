@@ -1,0 +1,24 @@
+{
+  "persons": [
+    {
+      "name": "Arto Hellas",
+      "number": "040-123456",
+      "id": "Arto Hellas"
+    },
+    {
+      "name": "Martti Tienari",
+      "number": "040-6985478",
+      "id": "Martti Tienari"
+    },
+    {
+      "name": "Nepa Neppula",
+      "number": "050-9854785",
+      "id": "Nepa Neppula"
+    },
+    {
+      "name": "Arto Järvinen",
+      "number": "050-9856548",
+      "id": "Arto Järvinen"
+    }
+  ]
+}
