@@ -4,6 +4,7 @@ import Persontable from './components/Persontable'
 import Input from './components/Input'
 import Headline from './components/Headline'
 import AddPersonForm from './components/AddPersonForm'
+import Notification from './components/Notification'
 
 // Luokan alustus
 class App extends React.Component {
@@ -15,10 +16,10 @@ class App extends React.Component {
       newName: '',
       newNumber: '',
       filter: '',
-      error: ''
+      error: null,
+      info: null
     }
   }
-
   // json-datan lukeminen (db.json)
   componentDidMount () {
     personService
@@ -29,7 +30,6 @@ class App extends React.Component {
         })
       })
   }
-
   // Uuden nimen lisääminen
   addPerson = (event) => {
     // Formin oletustapahtuman estäminen (oletus mm. lataisi sivun uudelleen)
@@ -53,6 +53,7 @@ class App extends React.Component {
             newName: '',
             newNumber: ''
           })
+          this.setInfo('Lisäys onnistui!')
         })
     // Jos nimi on jo luettelossa
     } else if (this.state.newName !== '') {
@@ -61,18 +62,44 @@ class App extends React.Component {
       const personObject = {
         name: this.state.newName,
         number: this.state.newNumber,
-        id: this.state.newName
+        id: result.id
       }
       personService
         .update(result.id, personObject)
         .then(response => {
+          this.setState({
+            persons: this.state.persons.concat(response.data),
+            newName: '',
+            newNumber: ''
+          })
+          this.setInfo('Päivitys onnistui!')
           this.updateList()
         })
     } else {
       alert('Nimi on jo luettelossa tai nimi on tyhjä.')
     }
   }
-
+  deletePerson = (id) => {
+    // console.log('Poista nimi', id)
+    if (window.confirm('Haluatko poistaa nimen luettelosta')) {
+      personService.remove(id)
+        .then(response => {
+          // console.log(response.data)
+          this.setInfo('Poisto onnistui!')
+          this.updateList()
+        })
+    }
+  }
+  setInfo = (message) => {
+    this.setState({
+      info: message
+    })
+    setTimeout(() => {
+      this.setState({
+        info: null
+      })
+    }, 5000)
+  }
   updateList = () => {
     console.log('Päivitetään lista')
     personService
@@ -84,17 +111,6 @@ class App extends React.Component {
         newNumber: ''
       })
     })
-  }
-
-  deletePerson = (id) => {
-    // console.log('Poista nimi', id)
-    if (window.confirm('Haluatko poistaa nimen luettelosta')) {
-      personService.remove(id)
-        .then(response => {
-          // console.log(response.data)
-          this.updateList()
-        })
-    }
   }
   // Tapahtumankäsittelijjät Input-kenttien muutoksille
   handleNameChange = (event) => {
@@ -121,6 +137,7 @@ class App extends React.Component {
     return ( < div>
                < Headline title={'Puhelinluettelo'} />
                < Notification className='error' message={this.state.error} />
+               < Notification className='info' message={this.state.info} />
                < AddPersonForm
                  onSubmit={this.addPerson}
                  handleNameChange={handleNameChange}
@@ -133,12 +150,5 @@ class App extends React.Component {
     )
   }
 }
-const Notification = ({message}) => {
-  if (message === null) {
-    return null
-  }
-  return ( < div className='error'>
-             {message}
-             < /div>)
-}
+
 export default App
