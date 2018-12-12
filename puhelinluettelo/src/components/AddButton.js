@@ -2,7 +2,7 @@ import React from 'react'
 
 const Button = (props) => {
   return ( < div>
-             < button type={props.type}>
+             < button className='AddButton' type={props.type}>
                {props.title}
                < /button>
                  < /div>

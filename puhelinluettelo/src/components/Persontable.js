@@ -3,7 +3,7 @@ import Person from './Person'
 
 const Persontable = (props) => {
   // console.log('Persontable', props)
-  return ( < table>
+  return ( < table className='Persontable'>
              < tbody>
                {props.list.map(person => < Person
                                            key={person.id}

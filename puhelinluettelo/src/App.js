@@ -3,7 +3,7 @@ import personService from './services/persons'
 import Persontable from './components/Persontable'
 import Input from './components/Input'
 import Headline from './components/Headline'
-import AddButton from './components/AddButton'
+import AddPersonForm from './components/AddPersonForm'
 
 // Luokan alustus
 class App extends React.Component {
@@ -14,7 +14,8 @@ class App extends React.Component {
       persons: [],
       newName: '',
       newNumber: '',
-      filter: ''
+      filter: '',
+      error: ''
     }
   }
 
@@ -87,12 +88,13 @@ class App extends React.Component {
 
   deletePerson = (id) => {
     // console.log('Poista nimi', id)
-    window.confirm('Haluatko poistaa nimen luettelosta')
-    personService.remove(id)
-      .then(response => {
-        // console.log(response.data)
-        this.updateList()
-      })
+    if (window.confirm('Haluatko poistaa nimen luettelosta')) {
+      personService.remove(id)
+        .then(response => {
+          // console.log(response.data)
+          this.updateList()
+        })
+    }
   }
   // Tapahtumankäsittelijjät Input-kenttien muutoksille
   handleNameChange = (event) => {
@@ -112,20 +114,31 @@ class App extends React.Component {
   }
   render () {
     const state = this.state
+    const handleNameChange = this.handleNameChange
+    const handleNumberChange = this.handleNumberChange
     const personlist = state.persons.filter(person => person.name.toLowerCase()
         .indexOf(state.filter.toLowerCase()) !== -1)
     return ( < div>
                < Headline title={'Puhelinluettelo'} />
-               < form onSubmit={this.addPerson}>
-                 < Input title={"Nimi: "} value={state.newName} onChange={this.handleNameChange} />
-                 < Input title={'Numero: '} value={state.newNumber} onChange={this.handleNumberChange} />
-                 < AddButton type='submit' title={"Lisää"} />
-                 < /form>
-                   < Input title={"Rajaa hakua: "} value={state.filter} onChange={this.handleFilterChange} />
-                   < Headline title={'Numerot'} />
-                   < Persontable list={personlist} onClick={this.deletePerson} />
-                   < /div>
+               < Notification className='error' message={this.state.error} />
+               < AddPersonForm
+                 onSubmit={this.addPerson}
+                 handleNameChange={handleNameChange}
+                 handleNumberChange={handleNumberChange}
+                 state={state} />
+               < Input title={"Rajaa hakua: "} value={state.filter} onChange={this.handleFilterChange} />
+               < Headline title={'Numerot'} />
+               < Persontable list={personlist} onClick={this.deletePerson} />
+               < /div>
     )
   }
+}
+const Notification = ({message}) => {
+  if (message === null) {
+    return null
+  }
+  return ( < div className='error'>
+             {message}
+             < /div>)
 }
 export default App
