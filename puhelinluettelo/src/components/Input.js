@@ -1,10 +1,12 @@
 import React from 'react'
 
-const Input = (props) => {
+const Input = ({title, value, onChange}) => {
   return ( < div>
-             {props.title}
-             < input value={props.value} onChange={props.onChange} />
-             < /div> )
+             < p className='InputTitle'>
+               {title}
+               < /p>
+                 < input className='InputField' value={value} onChange={onChange} />
+                 < /div> )
 }
 
 export default Input

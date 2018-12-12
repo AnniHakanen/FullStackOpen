@@ -1,26 +1,17 @@
 import React from 'react'
+import RemoveButton from './RemoveButton'
 
-const Person = (props) => {
-  // console.log('Person', props)
+const Person = ({name, number, onClick, id}) => {
   return ( < tr>
              < td>
-               {props.name}
+               {name}
                < /td>
                  < td>
-                   {props.number}
+                   {number}
                    < /td>
                      <td>
-                       <Button onClick={props.onClick} title='Poista' id={props.id} />
+                       <RemoveButton onClick={onClick} title='Poista' id={id} />
                      </td>
                      < /tr> )
-}
-
-const Button = (props) => {
-  // console.log(props)
-  return (
-    < button onClick={props.onClick.bind(this, props.id)}>
-      {props.title}
-      < /button>
-  )
 }
 export default Person

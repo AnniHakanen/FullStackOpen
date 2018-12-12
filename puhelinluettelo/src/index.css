@@ -1,6 +1,6 @@
 body {
-  margin: 0;
-  padding: 0;
+  margin: 20;
+  padding: 20;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -11,4 +11,61 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+h2 {
+  color: purple;
+  font-size: 25px;
+}
+.InputField {
+  font-size: 15px;
+  width: 50%;
+  padding: 12px 12px;
+  box-sizing: border-box;
+}
+.InputTitle{
+  padding:0px;
+  margin-bottom:0px;
+  margin-top: 10px;
+}
+.AddButton{
+  padding: 15px 30px 15px 30px;
+  font-size: 15px;
+  margin: 5px;
+}
+.Persontable{
+  width: 50%;
+}
+tr {
+  height: 30px;
+  text-align: left;
+}
+th, td {
+  padding: 5px;
+  margin: 0px;
+  border-bottom: 1px solid #ddd;
+}
+.RemoveButton{
+  padding: 5px 10px 5px 10px;
+  font-size: 15px;
+  margin: 5px;
+}
+.error {
+  width: 50%;
+  color: red;
+  background: lightpink;
+  font-size: 15px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.info {
+  width: 50%;
+  color: green;
+  background: lightgreen;
+  font-size: 15px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
