@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Yksi Sarvinen",
-      "number": "050-98745632",
-      "id": "Yksi Sarvinen"
-    },
-    {
       "name": "Martti Maunula",
       "number": "569854587",
       "id": "Martti Maunula"
@@ -14,11 +9,6 @@
       "name": "Arto Järvinen ",
       "number": "050-9865325",
       "id": "Arto Järvinen "
-    },
-    {
-      "name": "Juupo",
-      "number": "5487",
-      "id": "Juupo"
     },
     {
       "name": "Kaksi Sarvinen",
@@ -31,19 +21,14 @@
       "id": "Kolme Sarvinen"
     },
     {
-      "name": "Taavo Testi",
-      "number": "090-98989898",
-      "id": "Taavo Testi"
-    },
-    {
       "name": "Terhi Testi",
       "number": "02-5698547",
       "id": "Terhi Testi"
     },
     {
-      "name": "Joopo",
-      "number": "47",
-      "id": "Joopo"
+      "name": "Taavo Testi",
+      "number": "09-5689524",
+      "id": "Taavo Testi"
     }
   ]
 }

@@ -25,6 +25,10 @@ class App extends React.Component {
           persons: response.data
         })
       })
+      .catch(error => {
+        console.log('ERROR LOAD', error)
+        this.setError('Virhe luettelon lataamisessa')
+      })
   }
   // Uuden henkilön lisääminen
   addPerson = (event) => {
@@ -51,7 +55,10 @@ class App extends React.Component {
           })
           // Onnnistuneen lisäyksen ilmoitus
           this.setInfo('Lisäys onnistui!')
-        })
+        }).catch(error => {
+        console.log('ERROR CREATE', error)
+        this.setError('Virhe henkilön lisäämisessä')
+      })
     // Jos nimi on jo luettelossa kysytään käyttäjältä haluaako päivittää uuden numeron nimelle
     } else if (this.state.newName !== '') {
       window.confirm('Nimi on jo luettelossa, haluatko päivittää numeron?')
@@ -70,6 +77,15 @@ class App extends React.Component {
           this.setInfo('Päivitys onnistui!')
           this.updateList()
         })
+        .catch(error => {
+          console.log('ERROR UPDATE', error)
+          this.setError('Henkilöä ei löydy, lisää henkilö luetteloon')
+          // Alkuperäinen lista jonka id:t löytyy
+          this.setState({
+            persons: this.state.persons.filter(person => person.id !==
+              result.id)
+          })
+        })
     } else {
       alert('Nimi on jo luettelossa tai nimi on tyhjä.')
     }
@@ -84,8 +100,42 @@ class App extends React.Component {
           // Onnistuneen poiston ilmoitus
           this.setInfo('Poisto onnistui!')
           this.updateList()
+        }).catch(error => {
+        console.log('ERROR DELETE', error)
+        this.setError('Henkilöä ei löydy')
+        // Alkuperäinen lista jonka id:t löytyy
+        this.setState({
+          persons: this.state.persons.filter(person => person
+              .id !==
+            id)
         })
+      })
     }
+  }
+  // Päivittää listan serveriltä kutsutaan kun henkilö poistetaan tai tietoja päivitetään
+  updateList = () => {
+    // DEBUG lisätään olematon henkilö
+    // const nonExtPerson = {
+    //   name: 'Uuno Aputassu',
+    //   number: '020-9865987',
+    //   id: 'Uuno Aputassu'
+    // }
+    // console.log(nonExtPerson)
+    console.log('Päivitetään lista')
+    personService
+      .getAll().then(response => {
+      console.log(response)
+      this.setState({
+        // persons: response.data.concat(nonExtPerson),
+        persons: response.data,
+        newName: '',
+        newNumber: ''
+      })
+    })
+      .catch(error => {
+        console.log('ERROR')
+        this.setError('Virhe palvelussa. Yritä uudelleen.')
+      })
   }
   // Näyttää ilmoituksen info-laatikkossa 5sek.
   setInfo = (message) => {
@@ -108,19 +158,6 @@ class App extends React.Component {
         error: null
       })
     }, 5000)
-  }
-  // Päivittää listan serveriltä
-  updateList = () => {
-    console.log('Päivitetään lista')
-    personService
-      .getAll().then(response => {
-      console.log(response)
-      this.setState({
-        persons: response.data,
-        newName: '',
-        newNumber: ''
-      })
-    })
   }
   // Tapahtumankäsittelijjät Input-kenttien muutoksille
   handleNameChange = (event) => {
