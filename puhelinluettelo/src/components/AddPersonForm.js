@@ -1,15 +1,14 @@
-
 import React from 'react'
 import Input from './Input'
 import AddButton from './AddButton'
 
-const AddPersonForm = (props) => {
+const AddPersonForm = ({onSubmit, state, handleNameChange, handleNumberChange}) => {
   // console.log('Persontable', props)
-  return ( < form onSubmit={props.onSubmit} >
-    < Input title={"Nimi: "} value={props.state.newName} onChange={props.handleNameChange} />
-    < Input title={'Numero: '} value={props.state.newNumber} onChange={props.handleNumberChange} />
-    < AddButton type='submit' title={"Lisää"} />
-    < /form>
+  return ( < form onSubmit={onSubmit}>
+             < Input title={"Nimi: "} value={state.newName} onChange={handleNameChange} />
+             < Input title={'Numero: '} value={state.newNumber} onChange={handleNumberChange} />
+             < AddButton type='submit' title={"Lisää"} />
+             < /form>
   )
 }
 

@@ -17,9 +17,10 @@ h2 {
   font-size: 25px;
 }
 .InputField {
+  font-size: 15px;
   width: 50%;
-padding: 12px 12px;
-box-sizing: border-box;
+  padding: 12px 12px;
+  box-sizing: border-box;
 }
 .InputTitle{
   padding:0px;
@@ -37,7 +38,6 @@ box-sizing: border-box;
 tr {
   height: 30px;
   text-align: left;
-
 }
 th, td {
   padding: 5px;
@@ -50,7 +50,7 @@ th, td {
   margin: 5px;
 }
 .error {
-    width: 50%;
+  width: 50%;
   color: red;
   background: lightpink;
   font-size: 15px;

@@ -17,8 +17,33 @@
     },
     {
       "name": "Juupo",
-      "number": "458",
+      "number": "5487",
       "id": "Juupo"
+    },
+    {
+      "name": "Kaksi Sarvinen",
+      "number": "58965",
+      "id": "Kaksi Sarvinen"
+    },
+    {
+      "name": "Kolme Sarvinen",
+      "number": "09-3698547",
+      "id": "Kolme Sarvinen"
+    },
+    {
+      "name": "Taavo Testi",
+      "number": "090-98989898",
+      "id": "Taavo Testi"
+    },
+    {
+      "name": "Terhi Testi",
+      "number": "02-5698547",
+      "id": "Terhi Testi"
+    },
+    {
+      "name": "Joopo",
+      "number": "47",
+      "id": "Joopo"
     }
   ]
 }

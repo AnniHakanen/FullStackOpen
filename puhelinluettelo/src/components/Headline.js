@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Headline = (props) => {
+const Headline = ({title}) => {
   return ( < h2>
-             {props.title}
+             {title}
              < /h2>)
 }
 
